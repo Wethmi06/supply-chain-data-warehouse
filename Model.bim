@@ -1,0 +1,685 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1500,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/ \\MSSQLSERVER2;SupplyChainDW",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": ".\\MSSQLSERVER2",
+            "database": "SupplyChainDW"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "SQL",
+          "path": ".\\mssqlserver2;SupplyChainDW",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "DimCustomer",
+        "columns": [
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CustomerKey"
+          },
+          {
+            "name": "CustomerId",
+            "dataType": "int64",
+            "sourceColumn": "CustomerId"
+          },
+          {
+            "name": "FirstName",
+            "dataType": "string",
+            "sourceColumn": "FirstName"
+          },
+          {
+            "name": "LastName",
+            "dataType": "string",
+            "sourceColumn": "LastName"
+          },
+          {
+            "name": "Segment",
+            "dataType": "string",
+            "sourceColumn": "Segment"
+          },
+          {
+            "name": "Street",
+            "dataType": "string",
+            "sourceColumn": "Street"
+          },
+          {
+            "name": "City",
+            "dataType": "string",
+            "sourceColumn": "City"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State"
+          },
+          {
+            "name": "Country",
+            "dataType": "string",
+            "sourceColumn": "Country"
+          },
+          {
+            "name": "Zipcode",
+            "dataType": "string",
+            "sourceColumn": "Zipcode"
+          },
+          {
+            "name": "StartDate",
+            "dataType": "dateTime",
+            "sourceColumn": "StartDate"
+          },
+          {
+            "name": "EndDate",
+            "dataType": "dateTime",
+            "sourceColumn": "EndDate"
+          },
+          {
+            "name": "IsCurrent",
+            "dataType": "boolean",
+            "sourceColumn": "IsCurrent"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ \\MSSQLSERVER2;SupplyChainDW\",",
+                "    dbo_DimCustomer = Source{[Schema=\"dbo\",Item=\"DimCustomer\"]}[Data]",
+                "in",
+                "    dbo_DimCustomer"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "columns": [
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DateKey"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate"
+          },
+          {
+            "name": "Day",
+            "dataType": "int64",
+            "sourceColumn": "Day"
+          },
+          {
+            "name": "Month",
+            "dataType": "int64",
+            "sourceColumn": "Month"
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "sourceColumn": "MonthName"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "int64",
+            "sourceColumn": "Quarter"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year"
+          },
+          {
+            "name": "DayOfWeek",
+            "dataType": "string",
+            "sourceColumn": "DayOfWeek"
+          },
+          {
+            "name": "IsWeekend",
+            "dataType": "boolean",
+            "sourceColumn": "IsWeekend"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ \\MSSQLSERVER2;SupplyChainDW\",",
+                "    dbo_DimDate = Source{[Schema=\"dbo\",Item=\"DimDate\"]}[Data]",
+                "in",
+                "    dbo_DimDate"
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": " Date Hierarchy",
+            "levels": [
+              {
+                "name": "Year",
+                "ordinal": 0,
+                "column": "Year"
+              },
+              {
+                "name": "Quarter",
+                "ordinal": 1,
+                "column": "Quarter"
+              },
+              {
+                "name": "Month",
+                "ordinal": 2,
+                "column": "Month"
+              },
+              {
+                "name": "Day",
+                "ordinal": 3,
+                "column": "Day"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimGeography",
+        "columns": [
+          {
+            "name": "GeographyKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "GeographyKey"
+          },
+          {
+            "name": "City",
+            "dataType": "string",
+            "sourceColumn": "City"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State"
+          },
+          {
+            "name": "Country",
+            "dataType": "string",
+            "sourceColumn": "Country"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region"
+          },
+          {
+            "name": "Market",
+            "dataType": "string",
+            "sourceColumn": "Market"
+          },
+          {
+            "name": "Latitude",
+            "dataType": "double",
+            "sourceColumn": "Latitude"
+          },
+          {
+            "name": "Longitude",
+            "dataType": "double",
+            "sourceColumn": "Longitude"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ \\MSSQLSERVER2;SupplyChainDW\",",
+                "    dbo_DimGeography = Source{[Schema=\"dbo\",Item=\"DimGeography\"]}[Data]",
+                "in",
+                "    dbo_DimGeography"
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Geography Hierarchy ",
+            "levels": [
+              {
+                "name": "Market",
+                "ordinal": 0,
+                "column": "Market"
+              },
+              {
+                "name": "Region",
+                "ordinal": 1,
+                "column": "Region"
+              },
+              {
+                "name": "Country",
+                "ordinal": 2,
+                "column": "Country"
+              },
+              {
+                "name": "State",
+                "ordinal": 3,
+                "column": "State"
+              },
+              {
+                "name": "City",
+                "ordinal": 4,
+                "column": "City"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimProduct",
+        "columns": [
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ProductKey"
+          },
+          {
+            "name": "ProductCardId",
+            "dataType": "int64",
+            "sourceColumn": "ProductCardId"
+          },
+          {
+            "name": "ProductName",
+            "dataType": "string",
+            "sourceColumn": "ProductName"
+          },
+          {
+            "name": "ProductPrice",
+            "dataType": "double",
+            "sourceColumn": "ProductPrice"
+          },
+          {
+            "name": "ProductStatus",
+            "dataType": "string",
+            "sourceColumn": "ProductStatus"
+          },
+          {
+            "name": "CategoryId",
+            "dataType": "int64",
+            "sourceColumn": "CategoryId"
+          },
+          {
+            "name": "CategoryName",
+            "dataType": "string",
+            "sourceColumn": "CategoryName"
+          },
+          {
+            "name": "DepartmentId",
+            "dataType": "int64",
+            "sourceColumn": "DepartmentId"
+          },
+          {
+            "name": "DepartmentName",
+            "dataType": "string",
+            "sourceColumn": "DepartmentName"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ \\MSSQLSERVER2;SupplyChainDW\",",
+                "    dbo_DimProduct = Source{[Schema=\"dbo\",Item=\"DimProduct\"]}[Data]",
+                "in",
+                "    dbo_DimProduct"
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Product Hierarchy",
+            "levels": [
+              {
+                "name": "DepartmentName",
+                "ordinal": 0,
+                "column": "DepartmentName"
+              },
+              {
+                "name": "CategoryName",
+                "ordinal": 1,
+                "column": "CategoryName"
+              },
+              {
+                "name": "ProductName",
+                "ordinal": 2,
+                "column": "ProductName"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimShipper",
+        "columns": [
+          {
+            "name": "ShipperKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ShipperKey"
+          },
+          {
+            "name": "ShippingMode",
+            "dataType": "string",
+            "sourceColumn": "ShippingMode"
+          },
+          {
+            "name": "DeliveryStatus",
+            "dataType": "string",
+            "sourceColumn": "DeliveryStatus"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ \\MSSQLSERVER2;SupplyChainDW\",",
+                "    dbo_DimShipper = Source{[Schema=\"dbo\",Item=\"DimShipper\"]}[Data]",
+                "in",
+                "    dbo_DimShipper"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactOrderItem",
+        "columns": [
+          {
+            "name": "OrderItemKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "OrderItemKey"
+          },
+          {
+            "name": "OrderId",
+            "dataType": "int64",
+            "sourceColumn": "OrderId"
+          },
+          {
+            "name": "OrderItemId",
+            "dataType": "int64",
+            "sourceColumn": "OrderItemId"
+          },
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DateKey"
+          },
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "CustomerKey"
+          },
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ProductKey"
+          },
+          {
+            "name": "GeographyKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "GeographyKey"
+          },
+          {
+            "name": "ShipperKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ShipperKey"
+          },
+          {
+            "name": "Sales",
+            "dataType": "double",
+            "sourceColumn": "Sales"
+          },
+          {
+            "name": "OrderItemTotal",
+            "dataType": "double",
+            "sourceColumn": "OrderItemTotal"
+          },
+          {
+            "name": "OrderProfitPerOrder",
+            "dataType": "double",
+            "sourceColumn": "OrderProfitPerOrder"
+          },
+          {
+            "name": "BenefitPerOrder",
+            "dataType": "double",
+            "sourceColumn": "BenefitPerOrder"
+          },
+          {
+            "name": "OrderItemDiscount",
+            "dataType": "double",
+            "sourceColumn": "OrderItemDiscount"
+          },
+          {
+            "name": "OrderItemDiscountRate",
+            "dataType": "double",
+            "sourceColumn": "OrderItemDiscountRate"
+          },
+          {
+            "name": "OrderItemQuantity",
+            "dataType": "int64",
+            "sourceColumn": "OrderItemQuantity"
+          },
+          {
+            "name": "OrderItemProfitRatio",
+            "dataType": "double",
+            "sourceColumn": "OrderItemProfitRatio"
+          },
+          {
+            "name": "DaysShippingReal",
+            "dataType": "int64",
+            "sourceColumn": "DaysShippingReal"
+          },
+          {
+            "name": "DaysShipmentScheduled",
+            "dataType": "int64",
+            "sourceColumn": "DaysShipmentScheduled"
+          },
+          {
+            "name": "LateDeliveryRisk",
+            "dataType": "int64",
+            "sourceColumn": "LateDeliveryRisk"
+          },
+          {
+            "name": "accm_txn_create_time",
+            "dataType": "dateTime",
+            "sourceColumn": "accm_txn_create_time"
+          },
+          {
+            "name": "accm_txn_complete_time",
+            "dataType": "dateTime",
+            "sourceColumn": "accm_txn_complete_time"
+          },
+          {
+            "name": "txn_process_time_hours",
+            "dataType": "double",
+            "sourceColumn": "txn_process_time_hours"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ \\MSSQLSERVER2;SupplyChainDW\",",
+                "    dbo_FactOrderItem = Source{[Schema=\"dbo\",Item=\"FactOrderItem\"]}[Data]",
+                "in",
+                "    dbo_FactOrderItem"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Sales",
+            "expression": "SUM(FactOrderItem[Sales])"
+          },
+          {
+            "name": "Total Profit",
+            "expression": "SUM(FactOrderItem[OrderProfitPerOrder])"
+          },
+          {
+            "name": "Total Orders",
+            "expression": "DISTINCTCOUNT(FactOrderItem[OrderId])"
+          },
+          {
+            "name": "Total Quantity",
+            "expression": "SUM(FactOrderItem[OrderItemQuantity])"
+          },
+          {
+            "name": "Avg Shipping Days",
+            "expression": "AVERAGE(FactOrderItem[DaysShippingReal])"
+          },
+          {
+            "name": "Late Delivery Count",
+            "expression": "CALCULATE(COUNTROWS(FactOrderItem),FactOrderItem[LateDeliveryRisk]=1)"
+          },
+          {
+            "name": "Late Delivery %",
+            "expression": "DIVIDE([Late Delivery Count],[Total Orders],0)*100",
+            "kpi": {
+              "targetExpression": "50",
+              "statusGraphic": "Traffic Light - Single",
+              "statusExpression": [
+                "var x='FactOrderItem'[Late Delivery %] return",
+                "            if(ISBLANK(x),BLANK(),",
+                "                    If(x<30,-1,",
+                "\t                If(x<50,0,1)",
+                "                )",
+                "            )",
+                "            "
+              ],
+              "annotations": [
+                {
+                  "name": "GoalType",
+                  "value": "StaticValue"
+                },
+                {
+                  "name": "KpiStatusType",
+                  "value": "Linear"
+                },
+                {
+                  "name": "KpiThresholdType",
+                  "value": "Absolute"
+                },
+                {
+                  "name": "KpiThresholdOrdering",
+                  "value": "Ascending"
+                },
+                {
+                  "name": "KpiThresholdCount",
+                  "value": "2"
+                },
+                {
+                  "name": "KpiThreshold_0",
+                  "value": "30"
+                },
+                {
+                  "name": "KpiThreshold_1",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "c02aa8ef-d02a-4a39-b748-e5fdab4c5b5c",
+        "fromTable": "FactOrderItem",
+        "fromColumn": "CustomerKey",
+        "toTable": "DimCustomer",
+        "toColumn": "CustomerKey"
+      },
+      {
+        "name": "6b4a5e50-79d2-477a-951d-12a8e5083ae4",
+        "fromTable": "FactOrderItem",
+        "fromColumn": "DateKey",
+        "toTable": "DimDate",
+        "toColumn": "DateKey"
+      },
+      {
+        "name": "f41ad00d-53a8-45c8-93e3-ac9be16f46ff",
+        "fromTable": "FactOrderItem",
+        "fromColumn": "GeographyKey",
+        "toTable": "DimGeography",
+        "toColumn": "GeographyKey"
+      },
+      {
+        "name": "f3fd75c0-9d55-4ddc-923d-cf5657d00d5c",
+        "fromTable": "FactOrderItem",
+        "fromColumn": "ProductKey",
+        "toTable": "DimProduct",
+        "toColumn": "ProductKey"
+      },
+      {
+        "name": "19e04b32-0db1-42da-90a5-4134d4b4a3a9",
+        "fromTable": "FactOrderItem",
+        "fromColumn": "ShipperKey",
+        "toTable": "DimShipper",
+        "toColumn": "ShipperKey"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "600"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
